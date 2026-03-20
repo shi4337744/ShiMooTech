@@ -1,0 +1,40 @@
+page { background: #f4f7fa; }
+.discover-container { padding-bottom: 50rpx; }
+
+/* 吸顶导航 */
+.sticky-header { position: sticky; top: 0; z-index: 100; background: #f4f7fa; padding-bottom: 10rpx; }
+.tab-scroll { white-space: nowrap; background: #fff; padding: 20rpx; box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.03); }
+.tab-item { display: inline-block; padding: 12rpx 35rpx; margin-right: 20rpx; font-size: 26rpx; border-radius: 30rpx; background: #f1f5f9; color: #64748b; transition: all 0.2s; }
+.tab-item.active { background: #2563eb; color: #fff; font-weight: bold; transform: scale(1.05); }
+
+/* 内容流 */
+.feed-flow { padding: 25rpx; }
+.feed-card { background: #fff; border-radius: 32rpx; padding: 35rpx; margin-bottom: 30rpx; box-shadow: 0 4rpx 25rpx rgba(0,0,0,0.02); }
+
+.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25rpx; }
+.u-box { display: flex; align-items: center; }
+.u-avatar { width: 80rpx; height: 80rpx; background: #f1f5f9; border-radius: 40rpx; text-align: center; line-height: 80rpx; font-size: 40rpx; margin-right: 20rpx; }
+.u-name { font-size: 32rpx; font-weight: bold; color: #1e293b; display: block; }
+.u-time { font-size: 24rpx; color: #94a3b8; }
+
+.badge { font-size: 20rpx; padding: 6rpx 18rpx; border-radius: 10rpx; font-weight: bold; }
+.tag-wall { background: #e0f2fe; color: #0284c7; }
+.tag-errand { background: #fef3c7; color: #d97706; }
+.tag-market { background: #dcfce7; color: #16a34a; }
+.tag-food { background: #fee2e2; color: #dc2626; }
+
+.card-content .text { font-size: 34rpx; line-height: 1.6; color: #334155; display: block; }
+.card-content .img { width: 100%; border-radius: 24rpx; margin-top: 25rpx; border: 1rpx solid #f1f5f9; }
+
+.price-bar { margin-top: 25rpx; background: #f8fafc; padding: 20rpx 30rpx; border-radius: 20rpx; display: flex; justify-content: space-between; align-items: center; }
+.price-val { color: #ef4444; font-size: 38rpx; font-weight: 800; }
+.type-hint { font-size: 22rpx; color: #94a3b8; font-weight: 500; }
+
+.card-footer { display: flex; gap: 60rpx; margin-top: 35rpx; padding-top: 25rpx; border-top: 1rpx solid #f1f5f9; }
+.card-footer .btn { font-size: 28rpx; color: #64748b; font-weight: 500; }
+
+.empty-hint { text-align: center; color: #94a3b8; padding: 150rpx 0; }
+.empty-icon { font-size: 80rpx; margin-bottom: 20rpx; }
+
+.fade-in { animation: fadeIn 0.5s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20rpx); } to { opacity: 1; transform: translateY(0); } }
