@@ -1,0 +1,38 @@
+view, scroll-view, text, image, button, input { box-sizing: border-box; }
+page { background: #f4f7fa; }
+.hall-container { padding-bottom: 50rpx; }
+
+/* 顶部粘性过滤栏 */
+.sticky-header { position: sticky; top: 0; z-index: 100; background: #fff; box-shadow: 0 4rpx 15rpx rgba(0,0,0,0.03); }
+.tab-scroll { white-space: nowrap; padding: 25rpx 30rpx; }
+.tab-item { display: inline-block; font-size: 26rpx; color: #64748b; padding: 12rpx 32rpx; margin-right: 20rpx; border-radius: 40rpx; background: #f1f5f9; transition: all 0.2s; border: 2rpx solid transparent; }
+.tab-item.active { background: #f5f3ff; color: #8b5cf6; font-weight: bold; border-color: #ddd6fe; }
+
+/* 列表与空状态 */
+.list-section { padding: 30rpx; }
+.empty-state { text-align: center; padding: 200rpx 0; color: #94a3b8; }
+.empty-icon { font-size: 100rpx; margin-bottom: 20rpx; opacity: 0.5; }
+
+/* 跑腿卡片精美样式 */
+.task-card { background: #ffffff; border-radius: 24rpx; padding: 35rpx; margin-bottom: 30rpx; box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.03); width: 100%;}
+.task-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25rpx; }
+.task-user { display: flex; align-items: center; }
+.tu-avatar { width: 65rpx; height: 65rpx; background: #f5f3ff; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 32rpx; margin-right: 20rpx; }
+.tu-name { font-size: 28rpx; font-weight: bold; color: #1e293b; }
+.task-price { color: #ef4444; font-size: 24rpx; font-weight: bold; }
+.price-num { font-size: 48rpx; }
+.task-title { font-size: 32rpx; font-weight: bold; color: #334155; line-height: 1.5; display: block; margin-bottom: 25rpx; }
+.task-info-list { background: #f8fafc; border-radius: 16rpx; padding: 25rpx; margin-bottom: 25rpx; border: 1rpx solid #f1f5f9; }
+.ti-item { display: flex; align-items: center; font-size: 26rpx; color: #475569; margin-bottom: 12rpx; }
+.ti-item:last-child { margin-bottom: 0; }
+.ti-icon { margin-right: 15rpx; }
+.task-bot { display: flex; justify-content: space-between; align-items: center; border-top: 1rpx solid #f1f5f9; padding-top: 25rpx; }
+.task-tags { display: flex; gap: 15rpx; }
+.t-tag { font-size: 22rpx; padding: 8rpx 18rpx; border-radius: 8rpx; font-weight: bold; }
+.t-tag.urgent { background: #fee2e2; color: #ef4444; }
+.t-tag.type { background: #e0e7ff; color: #4f46e5; }
+.task-btn { margin: 0; background: #3b82f6; color: #ffffff; font-size: 28rpx; padding: 0 45rpx; height: 64rpx; line-height: 64rpx; border-radius: 40rpx; font-weight: bold; box-shadow: 0 4rpx 15rpx rgba(59,130,246,0.25); transition: all 0.2s;}
+.task-btn:active { transform: scale(0.95); }
+
+.fade-in { animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15rpx); } to { opacity: 1; transform: translateY(0); } }
