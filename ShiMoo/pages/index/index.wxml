@@ -1,0 +1,175 @@
+<view class="page-container">
+  <view class="search-section">
+    <view class="search-box" bindtap="goToSearch">
+      <icon type="search" size="16" color="#94a3b8"></icon>
+      <view class="search-input-placeholder">搜索动态、闲置、跑腿任务...</view>
+    </view>
+  </view>
+
+  <view class="grid-section">
+    <view class="grid-card">
+      <view class="grid-item {{currentTab === 'wall' ? 'active' : ''}}" bindtap="switchTab" data-tab="wall">
+        <view class="icon-circle bg-blue">💬</view>
+        <text>校园墙</text>
+      </view>
+      <view class="grid-item {{currentTab === 'errand' ? 'active' : ''}}" bindtap="switchTab" data-tab="errand">
+        <view class="icon-circle bg-purple">🏃</view>
+        <text>跑腿</text>
+      </view>
+      <view class="grid-item {{currentTab === 'market' ? 'active' : ''}}" bindtap="switchTab" data-tab="market">
+        <view class="icon-circle bg-green">🏷️</view>
+        <text>闲置</text>
+      </view>
+      <view class="grid-item {{currentTab === 'food' ? 'active' : ''}}" bindtap="switchTab" data-tab="food">
+        <view class="icon-circle bg-red">🍔</view>
+        <text>外卖</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="main-content">
+    
+    <view wx:if="{{currentTab === 'wall'}}" class="fade-in">
+      <view class="section-header">
+        <text class="main-title">新鲜动态</text>
+        <view class="publish-btn" bindtap="goToPublish">➕ 发动态</view>
+      </view>
+      
+      <view class="modern-card" wx:for="{{posts}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}" data-type="wall">
+        <view class="card-user">
+          <view class="user-avatar-placeholder">👤</view>
+          <view class="user-info">
+            <text class="user-name">{{item.userName}}</text>
+            <text class="user-time">{{item.time}} · {{item.location}}</text>
+          </view>
+        </view>
+        
+        <view class="card-content">
+          <text class="custom-tag" wx:if="{{item.tag}}">#{{item.tag}}</text>
+          <text class="content-text">{{item.content}}</text>
+          <image wx:if="{{item.imageUrl}}" class="content-img" src="{{item.imageUrl}}" mode="widthFix"></image>
+        </view>
+        
+        <view class="card-footer">
+          <view class="interaction-box">
+            <view class="btn {{item.isLiked ? 'liked' : ''}} {{item.isAnimating ? 'pop-animation' : ''}}" catchtap="handleLike" data-index="{{index}}" data-id="{{item.id}}">
+              {{item.isLiked ? '❤️' : '🤍'}} {{item.likeCount > 0 ? item.likeCount : '赞'}}
+            </view>
+            <view class="btn">💬 {{item.commentCount > 0 ? item.commentCount : '评论'}}</view>
+          </view>
+          
+          <block wx:if="{{item.userName === '我发布的' || item.userName === '自己(测试)'}}">
+            <view class="self-actions-box">
+              <view class="btn self-action edit" catchtap="editPost" data-id="{{item.id}}">编辑</view>
+              <view class="btn self-action delete" catchtap="deletePost" data-id="{{item.id}}">删除</view>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+
+    <view wx:elif="{{currentTab === 'errand'}}" class="fade-in">
+      <view class="section-header">
+        <text class="main-title">任务悬赏</text>
+        <view class="header-right">
+          <text class="view-all" bindtap="goToTask">进入大厅 ></text>
+          <view class="publish-btn purple-btn" bindtap="goToPublish">发布需求</view>
+        </view>
+      </view>
+      
+      <view class="task-card" wx:for="{{errandPosts}}" wx:key="id">
+        <view class="task-top">
+          <view class="task-user">
+            <view class="tu-avatar">🏃</view>
+            <text class="tu-name">{{item.userName}}</text>
+          </view>
+          <view class="task-price">￥<text class="price-num">{{item.price}}</text></view>
+        </view>
+        
+        <text class="task-title">{{item.content}}</text>
+        
+        <view class="task-info-list">
+          <view class="ti-item">
+            <text class="ti-icon">🕒</text>
+            <text>限 {{item.deadline}} 前完成</text>
+          </view>
+          <view class="ti-item">
+            <text class="ti-icon">📍</text>
+            <text>送至：{{item.location}}</text>
+          </view>
+        </view>
+        
+        <view class="task-bot">
+          <view class="task-tags">
+            <text class="t-tag urgent" wx:if="{{item.urgent}}">🔥 急单</text>
+            <text class="t-tag type" wx:if="{{item.taskType}}">{{item.taskType}}</text>
+          </view>
+          <button class="task-btn" catchtap="takeOrder" data-index="{{index}}">立即接单</button>
+        </view>
+      </view>
+    </view>
+
+    <view wx:elif="{{currentTab === 'market'}}" class="fade-in">
+      <view class="section-header">
+        <text class="main-title">跳蚤市场</text>
+        <view class="header-right">
+          <text class="view-all" bindtap="goToMarket">逛逛市场 ></text>
+          <view class="publish-btn green-btn" bindtap="goToPublish">卖闲置</view>
+        </view>
+      </view>
+      
+      <view class="market-grid">
+        <view class="m-card" wx:for="{{marketPosts}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}" data-type="market">
+          <image class="m-img" src="{{item.imageUrl}}" mode="aspectFill"></image>
+          
+          <view class="m-content-box">
+            <text class="m-title">{{item.content}}</text>
+            <view class="m-tags">
+              <text class="m-tag trade">{{item.tradeType}}</text>
+              <text class="m-tag condition">{{item.condition}}</text>
+            </view>
+            <view class="m-price-row">
+              <text class="m-price"><text class="m-symbol">￥</text>{{item.price}}</text>
+              <text class="m-original-price">￥{{item.originalPrice}}</text>
+            </view>
+            
+            <view class="m-user-row">
+              <view class="m-user">
+                <view class="m-avatar">👤</view>
+                <text class="m-name">{{item.userName}}</text>
+              </view>
+              <view class="m-action">
+                <view class="m-stat">💬 {{item.commentCount || 0}}</view>
+                
+                <view class="m-like {{item.isLiked ? 'liked' : ''}} {{item.isAnimating ? 'pop-animation' : ''}}" catchtap="handleLike" data-list="marketPosts" data-index="{{index}}" data-id="{{item.id}}">
+                  {{item.isLiked ? '❤️' : '🤍'}} {{item.likes}}
+                </view>
+                
+              </view>
+            </view>
+          </view>
+          
+        </view>
+      </view>
+    </view>
+
+    <view wx:elif="{{currentTab === 'food'}}" class="fade-in">
+      <view class="section-header"><text class="main-title">校园美食</text></view>
+      <view class="food-card" wx:for="{{foodList}}" wx:key="index">
+        <image class="food-img" src="{{item.img}}"></image>
+        <view class="food-info">
+          <view class="food-name-row">
+            <text class="food-name">{{item.name}}</text>
+            <text class="food-tag">{{item.tag}}</text>
+          </view>
+          <view class="food-score">⭐ {{item.score}} <text class="sales">{{item.sales}}</text></view>
+          <view class="food-bottom">
+            <text class="food-price">起送 ￥{{item.price}}</text>
+            <button class="order-btn" bindtap="goToFoodDetail" data-name="{{item.name}}">进入店面</button>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+  </view>
+</view>
