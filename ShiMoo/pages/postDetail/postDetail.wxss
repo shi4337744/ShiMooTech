@@ -1,0 +1,56 @@
+page { 
+  background-color: #f8fafc; 
+  padding-bottom: 150rpx; /* 给底部的评论输入框留出足够的空间，防止被遮挡 */
+}
+
+.detail-container { display: flex; flex-direction: column; }
+
+/* 头部作者信息 */
+.author-header { display: flex; align-items: center; padding: 30rpx; background: #fff; margin-bottom: 20rpx; }
+.avatar { width: 80rpx; height: 80rpx; background: #f1f5f9; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 40rpx; margin-right: 20rpx; }
+.author-info { flex: 1; display: flex; flex-direction: column; }
+.author-name { font-size: 32rpx; font-weight: bold; color: #1e293b; }
+.post-time { font-size: 24rpx; color: #94a3b8; margin-top: 6rpx; }
+.follow-btn { font-size: 24rpx; color: #3b82f6; border: 2rpx solid #3b82f6; border-radius: 30rpx; padding: 6rpx 24rpx; background: transparent; margin: 0; line-height: 1.5; }
+
+/* 帖子正文 */
+.post-body { background: #fff; padding: 0 30rpx 40rpx; margin-bottom: 20rpx; }
+.price-box { margin-bottom: 20rpx; padding-top: 10rpx;}
+.price { color: #ef4444; font-size: 44rpx; font-weight: 900; margin-right: 15rpx; }
+.original-price { color: #94a3b8; font-size: 26rpx; text-decoration: line-through; }
+.tags-row { display: flex; gap: 15rpx; margin-top: 15rpx; }
+.t-tag { font-size: 22rpx; background: #f1f5f9; color: #475569; padding: 6rpx 16rpx; border-radius: 8rpx; }
+
+.post-text { font-size: 32rpx; color: #334155; line-height: 1.6; display: block; }
+.post-img { width: 100%; border-radius: 20rpx; margin-top: 25rpx; }
+.post-tag { display: inline-block; color: #3b82f6; background-color: #eff6ff; padding: 8rpx 20rpx; border-radius: 12rpx; font-size: 26rpx; margin-top: 25rpx; }
+
+/* 评论区 */
+.comments-section { background: #fff; padding: 30rpx; min-height: 400rpx; }
+.c-title { font-size: 30rpx; font-weight: bold; color: #1e293b; margin-bottom: 30rpx; }
+.empty-comment { text-align: center; color: #cbd5e1; padding: 60rpx 0; font-size: 28rpx; }
+
+.comment-item { display: flex; margin-bottom: 40rpx; }
+.c-avatar { width: 60rpx; height: 60rpx; background: #f1f5f9; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30rpx; margin-right: 20rpx; flex-shrink: 0; }
+.c-content-box { flex: 1; border-bottom: 1rpx solid #f8fafc; padding-bottom: 30rpx; }
+.comment-item:last-child .c-content-box { border-bottom: none; }
+.c-user-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10rpx; }
+.c-name { font-size: 26rpx; color: #64748b; font-weight: bold; }
+.c-like { font-size: 24rpx; color: #94a3b8; }
+.c-text { font-size: 30rpx; color: #334155; line-height: 1.5; display: block; margin-bottom: 15rpx; }
+.c-time { font-size: 22rpx; color: #94a3b8; }
+
+/* 底部吸附栏 */
+.reply-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; padding: 20rpx 30rpx; padding-bottom: env(safe-area-inset-bottom); display: flex; align-items: center; border-top: 1rpx solid #f1f5f9; z-index: 100; box-shadow: 0 -4rpx 20rpx rgba(0,0,0,0.03); }
+.reply-input { flex: 1; height: 72rpx; background: #f1f5f9; border-radius: 36rpx; padding: 0 30rpx; font-size: 28rpx; margin-right: 20rpx; }
+.action-icons { display: flex; align-items: center; gap: 20rpx; }
+.icon-btn { font-size: 40rpx; }
+.send-btn { background: #e2e8f0; color: #94a3b8; font-size: 28rpx; padding: 12rpx 30rpx; border-radius: 30rpx; font-weight: bold; transition: all 0.3s;}
+.send-btn.ready { background: #3b82f6; color: #fff; }
+
+/* 🚀 互动按钮高亮与动画 */
+.icon-btn { font-size: 44rpx; transition: all 0.2s; }
+.icon-btn.liked { color: #ef4444; }
+.icon-btn.favorited { color: #f59e0b; }
+.pop-animation { animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+@keyframes pop { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1); } }

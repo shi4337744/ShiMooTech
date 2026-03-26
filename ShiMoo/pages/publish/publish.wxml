@@ -1,0 +1,166 @@
+<view class="publish-container">
+  <view class="input-card">
+    <textarea 
+      class="content-textarea" 
+      placeholder="{{isEdit ? '修改你的内容...' : '详细描述你的需求或动态...'}}" 
+      maxlength="500"
+      bindinput="onInput"
+      value="{{textContent}}"
+    ></textarea>
+    <view class="word-count">{{textContent.length || 0}}/500</view>
+  </view>
+
+  <view class="section-title">添加图片</view>
+  <view class="image-grid">
+    <view class="media-item" wx:if="{{postImageUrl}}">
+      <image src="{{postImageUrl}}" class="preview-img" mode="aspectFill"></image>
+      <view class="del-img" bindtap="deleteImage">×</view>
+    </view>
+    <view wx:else class="add-btn" bindtap="chooseImage">
+      <text class="plus">+</text>
+      <text class="add-txt">上传照片</text>
+    </view>
+  </view>
+
+  <view class="section-title">{{isEdit ? '设置 (编辑模式不可修改频道)' : '发布设置'}}</view>
+  <view class="option-group">
+    
+    <picker mode="selector" range="{{channels}}" bindchange="onChannelChange" disabled="{{isEdit}}">
+      <view class="option-item {{isEdit ? 'disabled-item' : ''}}">
+        <view class="item-left">
+          <text class="item-icon">{{channelIcons[channelIndex]}}</text>
+          <text class="item-label">发布频道</text>
+        </view>
+        <view class="item-right">
+          <text class="item-value channel-value">{{channels[channelIndex]}}</text>
+          <text class="arrow" wx:if="{{!isEdit}}">〉</text>
+        </view>
+      </view>
+    </picker>
+
+    <view class="option-item">
+      <view class="item-left">
+        <text class="item-icon">📍</text>
+        <text class="item-label">详细位置</text>
+      </view>
+      <view class="item-right flex-1 ml-20">
+        <input class="input-field right-align" placeholder="例:11号楼302 (可选)" value="{{locationContent}}" bindinput="onLocationInput" />
+      </view>
+    </view>
+
+    <block wx:if="{{channelIndex == 0}}">
+      <view class="option-item">
+        <view class="item-left">
+          <text class="item-icon">#️⃣</text>
+          <text class="item-label">自定义标签</text>
+        </view>
+        <view class="item-right">
+          <input class="input-field right-align tag-input" placeholder="#例:寻物启事#" value="{{tagContent}}" bindinput="onTagInput" />
+        </view>
+      </view>
+    </block>
+
+    <block wx:if="{{channelIndex == 1}}">
+      <view class="option-item">
+        <view class="item-left">
+          <text class="item-icon">💰</text>
+          <text class="item-label">悬赏金额(元)</text>
+        </view>
+        <view class="item-right flex-1">
+          <input class="input-field right-align price-input" type="digit" placeholder="0.00" value="{{price}}" bindinput="onPriceInput" />
+        </view>
+      </view>
+
+      <view class="option-item">
+        <view class="item-left">
+          <text class="item-icon">📱</text>
+          <text class="item-label">预留电话</text>
+        </view>
+        <view class="item-right flex-1">
+          <input class="input-field right-align" type="number" placeholder="仅接单人可见" value="{{phone}}" bindinput="onPhoneInput" maxlength="11" />
+        </view>
+      </view>
+
+      <picker mode="time" bindchange="onTimeChange">
+        <view class="option-item">
+          <view class="item-left">
+            <text class="item-icon">⏰</text>
+            <text class="item-label">要求送达时间</text>
+          </view>
+          <view class="item-right">
+            <text class="item-value">{{deadline || '点击设置'}}</text>
+            <text class="arrow">〉</text>
+          </view>
+        </view>
+      </picker>
+
+      <view class="option-item flex-col-item">
+        <view class="item-left full-width">
+          <text class="item-icon">🔖</text>
+          <text class="item-label">任务标签 <text class="sub-label">(最多选3个)</text></text>
+        </view>
+        <view class="tags-container">
+          <view 
+            wx:for="{{errandTags}}" 
+            wx:key="name"
+            class="tag-pill {{item.selected ? 'active' : ''}}"
+            bindtap="toggleErrandTag"
+            data-index="{{index}}"
+          >
+            {{item.name}}
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <block wx:if="{{channelIndex == 2}}">
+      <picker mode="selector" range="{{marketTypes}}" bindchange="onMarketTypeChange">
+        <view class="option-item">
+          <view class="item-left">
+            <text class="item-icon">🔄</text>
+            <text class="item-label">交易类型</text>
+          </view>
+          <view class="item-right">
+            <text class="item-value">{{marketTypes[marketTypeIndex]}}</text>
+            <text class="arrow">〉</text>
+          </view>
+        </view>
+      </picker>
+
+      <view class="option-item">
+        <view class="item-left">
+          <text class="item-icon">✨</text>
+          <text class="item-label">新旧程度</text>
+        </view>
+        <view class="item-right flex-1">
+          <input class="input-field right-align" placeholder="例: 9成新 / 仅拆封" value="{{condition}}" bindinput="onConditionInput" />
+        </view>
+      </view>
+
+      <view class="option-item">
+        <view class="item-left">
+          <text class="item-icon">💵</text>
+          <text class="item-label">购入原价</text>
+        </view>
+        <view class="item-right flex-1">
+          <input class="input-field right-align" type="digit" placeholder="请输入原价" value="{{originalPrice}}" bindinput="onOriginalPriceInput" />
+        </view>
+      </view>
+
+      <view class="option-item">
+        <view class="item-left">
+          <text class="item-icon">💰</text>
+          <text class="item-label">期望售价</text>
+        </view>
+        <view class="item-right flex-1">
+          <input class="input-field right-align price-red" type="digit" placeholder="请输入售价" value="{{price}}" bindinput="onPriceInput" />
+        </view>
+      </view>
+    </block>
+
+  </view>
+
+  <view class="bottom-bar">
+    <button class="submit-btn" hover-class="btn-active" bindtap="submitPost">{{isEdit ? '保存修改' : '立即发布'}}</button>
+  </view>
+</view>

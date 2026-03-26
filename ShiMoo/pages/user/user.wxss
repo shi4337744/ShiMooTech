@@ -1,0 +1,36 @@
+page { background-color: #f4f7fa; padding-bottom: 150rpx; /* 为自定义TabBar留出空间 */ }
+.user-container { display: flex; flex-direction: column; }
+
+/* 顶部背景与个人信息 */
+.header-bg { background: linear-gradient(135deg, #3b82f6, #60a5fa); padding: 60rpx 40rpx 100rpx; border-bottom-left-radius: 40rpx; border-bottom-right-radius: 40rpx; }
+.user-info-box { display: flex; align-items: center; }
+.avatar { width: 120rpx; height: 120rpx; border-radius: 50%; border: 4rpx solid rgba(255, 255, 255, 0.4); margin-right: 30rpx; background-color: #e2e8f0; }
+.info-text { flex: 1; display: flex; flex-direction: column; }
+.nickname { font-size: 40rpx; font-weight: 800; color: #ffffff; margin-bottom: 10rpx; }
+.bio { font-size: 26rpx; color: #eff6ff; opacity: 0.9; }
+.edit-btn { background: rgba(255, 255, 255, 0.2); color: #ffffff; font-size: 24rpx; padding: 10rpx 30rpx; border-radius: 30rpx; font-weight: bold; }
+
+/* 悬浮数据统计卡片 */
+.stats-card { background: #ffffff; border-radius: 24rpx; display: flex; padding: 40rpx 20rpx; margin: -60rpx 30rpx 30rpx; box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.05); position: relative; z-index: 10; }
+.stat-item { flex: 1; display: flex; flex-direction: column; align-items: center; position: relative; }
+/* 给前三个选项加右侧分割线 */
+.stat-item:not(:last-child)::after { content: ''; position: absolute; right: 0; top: 20%; height: 60%; width: 2rpx; background: #f1f5f9; }
+.stat-num { font-size: 36rpx; font-weight: 900; color: #1e293b; margin-bottom: 10rpx; }
+.stat-label { font-size: 24rpx; color: #64748b; }
+
+/* 菜单列表区 */
+.menu-group { background: #ffffff; border-radius: 24rpx; margin: 0 30rpx 30rpx; padding: 0 30rpx; box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.02); }
+.menu-item { display: flex; justify-content: space-between; align-items: center; padding: 35rpx 0; border-bottom: 1rpx solid #f8fafc; }
+.menu-item:last-child { border-bottom: none; }
+
+/* 针对 button 类型的客服菜单去格式化 */
+button.menu-item { background: transparent; margin: 0; line-height: normal; font-weight: normal; border-radius: 0; }
+button.menu-item::after { border: none; }
+
+.menu-left { display: flex; align-items: center; }
+.menu-icon { font-size: 40rpx; margin-right: 25rpx; }
+.menu-text { font-size: 30rpx; color: #334155; font-weight: 500; }
+.menu-arrow { font-size: 24rpx; color: #cbd5e1; }
+
+/* 底部版本号 */
+.version-text { text-align: center; font-size: 22rpx; color: #cbd5e1; padding-top: 20rpx; }

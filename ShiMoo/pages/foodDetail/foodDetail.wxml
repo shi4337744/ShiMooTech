@@ -1,0 +1,77 @@
+<view class="shop-container">
+  <view class="shop-header">
+    <view class="shop-info">
+      <text class="shop-title">{{shopName}}</text>
+      <text class="shop-desc">公告：欢迎光临，本店支持打包/堂食/外卖。美味不用等！</text>
+    </view>
+  </view>
+
+  <scroll-view class="menu-list" scroll-y>
+    <view class="menu-item" wx:for="{{menuList}}" wx:key="id">
+      <image class="m-img" src="{{item.img}}" mode="aspectFill"></image>
+      <view class="m-info">
+        <text class="m-name">{{item.name}}</text>
+        <text class="m-desc">{{item.description}}</text>
+        <text class="m-sales">月售 {{item.sales}}</text>
+        
+        <view class="m-bottom">
+          <text class="m-price"><text class="m-symbol">￥</text>{{item.price}}</text>
+          
+          <view class="stepper">
+            <view class="step-btn minus" bindtap="minusCount" data-id="{{item.id}}" wx:if="{{cart[item.id] > 0}}">-</view>
+            <text class="step-num" wx:if="{{cart[item.id] > 0}}">{{cart[item.id]}}</text>
+            <view class="step-btn plus" bindtap="addCount" data-id="{{item.id}}">+</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <view class="bottom-spacer"></view>
+  </scroll-view>
+
+  <view class="mask {{showCartDetail ? 'show' : ''}}" bindtap="hideCart"></view>
+
+  <view class="cart-popup {{showCartDetail ? 'show' : ''}}">
+    <view class="cp-header">
+      <text class="cp-title">已选商品</text>
+      <view class="cp-clear" bindtap="clearCart">
+        <text class="clear-icon">🗑️</text> 清空购物车
+      </view>
+    </view>
+    
+    <scroll-view class="cp-list" scroll-y>
+      <view class="cp-item" wx:for="{{cartList}}" wx:key="id">
+        <view class="cp-name-box">
+          <text class="cp-name">{{item.name}}</text>
+        </view>
+        <view class="cp-right">
+          <text class="cp-price">￥{{item.price * item.count}}</text>
+          <view class="stepper">
+            <view class="step-btn minus" bindtap="minusCount" data-id="{{item.id}}">-</view>
+            <text class="step-num">{{item.count}}</text>
+            <view class="step-btn plus" bindtap="addCount" data-id="{{item.id}}">+</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="bottom-bar">
+    <view class="cart-left" bindtap="toggleCart">
+      <view class="cart-icon-box {{totalCount > 0 ? 'active' : ''}} {{isBouncing ? 'bounce' : ''}}">
+        <text class="cart-icon">🛒</text>
+        <view class="cart-badge" wx:if="{{totalCount > 0}}">{{totalCount}}</view>
+      </view>
+      
+      <view class="price-box">
+        <text class="total-price" wx:if="{{totalCount > 0}}">￥{{totalPrice}}</text>
+        <text class="empty-text" wx:else>未选购商品</text>
+      </view>
+    </view>
+    
+    <view class="checkout-btn {{totalPrice >= startingPrice ? 'ready' : ''}}" bindtap="checkout">
+      {{totalPrice >= startingPrice ? '去结算' : '￥' + startingPrice + ' 起送'}}
+    </view>
+  </view>
+
+</view>

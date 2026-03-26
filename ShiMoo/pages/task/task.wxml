@@ -1,0 +1,43 @@
+<view class="hall-container">
+  <view class="sticky-header">
+    <scroll-view scroll-x class="tab-scroll">
+      <view class="tab-item {{filterType === 'all' ? 'active' : ''}}" bindtap="changeFilter" data-type="all">全部任务</view>
+      <view class="tab-item {{filterType === 'urgent' ? 'active' : ''}}" bindtap="changeFilter" data-type="urgent">🔥 急单</view>
+      <view class="tab-item {{filterType === '代取件' ? 'active' : ''}}" bindtap="changeFilter" data-type="代取件">📦 代取件</view>
+      <view class="tab-item {{filterType === '代买饭' ? 'active' : ''}}" bindtap="changeFilter" data-type="代买饭">🍔 代买饭</view>
+      <view class="tab-item {{filterType === '占座' ? 'active' : ''}}" bindtap="changeFilter" data-type="占座">📚 占座</view>
+    </scroll-view>
+  </view>
+
+  <view class="list-section">
+    <view class="empty-state" wx:if="{{displayList.length === 0}}">
+      <view class="empty-icon">🍃</view>
+      <text>当前分类下暂无跑腿任务</text>
+    </view>
+
+    <view class="task-card fade-in" wx:for="{{displayList}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}" data-type="errand">
+      <view class="task-top">
+        <view class="task-user">
+          <view class="tu-avatar">🏃</view>
+          <text class="tu-name">{{item.userName}}</text>
+        </view>
+        <view class="task-price">￥<text class="price-num">{{item.price}}</text></view>
+      </view>
+      
+      <text class="task-title">{{item.content}}</text>
+      
+      <view class="task-info-list">
+        <view class="ti-item"><text class="ti-icon">🕒</text><text>限 {{item.deadline}} 前完成</text></view>
+        <view class="ti-item"><text class="ti-icon">📍</text><text>送至：{{item.location}}</text></view>
+      </view>
+      
+      <view class="task-bot">
+        <view class="task-tags">
+          <text class="t-tag urgent" wx:if="{{item.urgent}}">🔥 急单</text>
+          <text class="t-tag type" wx:if="{{item.taskType}}">{{item.taskType}}</text>
+        </view>
+        <button class="task-btn" catchtap="takeOrder" data-id="{{item.id}}">立即接单</button>
+      </view>
+    </view>
+  </view>
+</view>

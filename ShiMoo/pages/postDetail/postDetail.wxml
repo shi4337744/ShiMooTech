@@ -1,0 +1,53 @@
+<view class="detail-container">
+  <scroll-view class="content-scroll" scroll-y>
+    <view class="author-header">
+      <view class="avatar">{{postInfo.type === 'market' ? '🏷️' : '👤'}}</view>
+      <view class="author-info">
+        <text class="author-name">{{postInfo.userName}}</text>
+        <text class="post-time">{{postInfo.time}} 发布 {{postInfo.location ? '· '+postInfo.location : ''}}</text>
+      </view>
+      <button class="follow-btn">+ 关注</button>
+    </view>
+    <view class="post-body">
+      <view class="price-box" wx:if="{{postInfo.type === 'market'}}">
+        <text class="price">￥{{postInfo.price}}</text>
+        <text class="original-price" wx:if="{{postInfo.originalPrice}}">原价￥{{postInfo.originalPrice}}</text>
+        <view class="tags-row">
+          <text class="t-tag">{{postInfo.condition}}</text>
+          <text class="t-tag">{{postInfo.tradeType}}</text>
+        </view>
+      </view>
+      <text class="post-text">{{postInfo.content}}</text>
+      <image wx:if="{{postInfo.imageUrl}}" class="post-img" src="{{postInfo.imageUrl}}" mode="widthFix"></image>
+      <view class="post-tag" wx:if="{{postInfo.tag}}">#{{postInfo.tag}}</view>
+    </view>
+    <view class="comments-section">
+      <view class="c-title">全部评论 ({{comments.length}})</view>
+      <view class="empty-comment" wx:if="{{comments.length === 0}}"><text>还没有人评论，快来抢沙发吧~</text></view>
+      <view class="comment-item" wx:for="{{comments}}" wx:key="id">
+        <view class="c-avatar">👦</view>
+        <view class="c-content-box">
+          <view class="c-user-row"><text class="c-name">{{item.name}}</text><view class="c-like">🤍 {{item.likes}}</view></view>
+          <text class="c-text">{{item.content}}</text><text class="c-time">{{item.time}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="bottom-spacer"></view>
+  </scroll-view>
+
+  <view class="reply-bar">
+    <input class="reply-input" placeholder="说点什么吧..." value="{{inputValue}}" bindinput="onInput" confirm-type="send" bindconfirm="submitComment" cursor-spacing="20" />
+    <view class="action-icons">
+      <view class="icon-btn {{postInfo.isLiked ? 'liked' : ''}} {{isLikeAnimating ? 'pop-animation' : ''}}" bindtap="toggleLike" wx:if="{{postInfo.type !== 'errand'}}">
+        {{postInfo.isLiked ? '❤️' : '🤍'}}
+      </view>
+      
+      <view class="icon-btn {{postInfo.isFavorited ? 'favorited' : ''}} {{isFavAnimating ? 'pop-animation' : ''}}" bindtap="toggleFavorite">
+        {{postInfo.isFavorited ? '🌟' : '⭐'}}
+      </view>
+      
+      <view class="send-btn {{inputValue.length > 0 ? 'ready' : ''}}" bindtap="submitComment">发送</view>
+      <view class="send-btn ready" style="background: #10b981;" bindtap="buyItem" wx:if="{{postInfo.type === 'market'}}">买下</view>
+    </view>
+  </view>
+</view>

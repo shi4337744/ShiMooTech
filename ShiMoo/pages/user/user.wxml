@@ -1,0 +1,58 @@
+<view class="user-container">
+  <view class="header-bg">
+    <view class="user-info-box">
+      <image class="avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill" bindtap="goToProfile"></image>
+      <view class="info-text">
+        <text class="nickname">{{userInfo.nickName}}</text>
+        <text class="bio">{{userInfo.bio}}</text>
+      </view>
+      <view class="edit-btn" bindtap="goToProfile">编辑</view>
+    </view>
+  </view>
+
+  <view class="stats-card">
+    <view class="stat-item" bindtap="goToMyPublish">
+      <text class="stat-num">{{publishCount || 0}}</text>
+      <text class="stat-label">我的发布</text>
+    </view>
+    <view class="stat-item" bindtap="goToMyFavorite">
+      <text class="stat-num">{{favCount || 0}}</text>
+      <text class="stat-label">我的收藏</text>
+    </view>
+    <view class="stat-item" bindtap="showToast">
+      <text class="stat-num">8</text>
+      <text class="stat-label">关注</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-num">128</text>
+      <text class="stat-label">获赞</text>
+    </view>
+  </view>
+
+  <view class="menu-group">
+    <view class="menu-item" bindtap="goToMyOrders">
+      <view class="menu-left"><text class="menu-icon">📦</text><text class="menu-text">我的订单</text></view>
+      <text class="menu-arrow">〉</text>
+    </view>
+    <view class="menu-item" bindtap="goToMyFavorite">
+      <view class="menu-left"><text class="menu-icon">⭐</text><text class="menu-text">我的收藏</text></view>
+      <text class="menu-arrow">〉</text>
+    </view>
+    <view class="menu-item" bindtap="goToMyPublish">
+      <view class="menu-left"><text class="menu-icon">📝</text><text class="menu-text">我的发布</text></view>
+      <text class="menu-arrow">〉</text>
+    </view>
+  </view>
+
+  <view class="menu-group">
+    <button class="menu-item contact-btn" open-type="contact">
+      <view class="menu-left"><text class="menu-icon">🎧</text><text class="menu-text">联系客服</text></view>
+      <text class="menu-arrow">〉</text>
+    </button>
+    <view class="menu-item" bindtap="goToSettings">
+      <view class="menu-left"><text class="menu-icon">⚙️</text><text class="menu-text">系统设置</text></view>
+      <text class="menu-arrow">〉</text>
+    </view>
+  </view>
+  <view class="version-text">v1.0.0 Campus Service Hub</view>
+</view>

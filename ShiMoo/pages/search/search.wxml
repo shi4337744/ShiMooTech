@@ -1,0 +1,115 @@
+<view class="search-container">
+  
+  <view class="search-header">
+    <view class="search-input-box">
+      <icon type="search" size="16" color="#94a3b8"></icon>
+      <input 
+        class="search-input" 
+        placeholder="搜索动态、闲置、跑腿任务..." 
+        value="{{keyword}}" 
+        bindinput="onInput" 
+        bindconfirm="onSearch" 
+        confirm-type="search" 
+        focus="true" 
+      />
+      <icon type="clear" size="16" color="#cbd5e1" wx:if="{{keyword.length > 0}}" bindtap="clearInput"></icon>
+    </view>
+    <text class="cancel-btn" bindtap="goBack">取消</text>
+  </view>
+
+  <view class="history-section" wx:if="{{!isSearching && historyList.length > 0}}">
+    <view class="history-header">
+      <text class="history-title">历史搜索</text>
+      <text class="clear-history" bindtap="clearHistory">🗑️ 清空</text>
+    </view>
+    <view class="history-tags">
+      <text class="h-tag" wx:for="{{historyList}}" wx:key="*this" bindtap="tapHistory" data-keyword="{{item}}">{{item}}</text>
+    </view>
+  </view>
+
+  <view class="results-section" wx:if="{{isSearching}}">
+    
+    <view class="empty-result" wx:if="{{results.length === 0}}">
+      <text class="empty-icon">🔍</text>
+      <text>未找到相关内容，换个词试试吧</text>
+    </view>
+    
+    <view class="result-list" wx:else>
+      <block wx:for="{{results}}" wx:key="id">
+        
+        <view class="modern-card fade-in" wx:if="{{item.type === 'wall'}}" bindtap="goToDetail" data-id="{{item.id}}" data-type="wall">
+          <view class="card-user">
+            <view class="user-avatar-placeholder">👤</view>
+            <view class="user-info">
+              <text class="user-name">{{item.userName}}</text>
+              <text class="user-time">{{item.time}} · {{item.location}}</text>
+            </view>
+          </view>
+          <view class="card-content">
+            <text class="custom-tag" wx:if="{{item.tag}}">#{{item.tag}}</text>
+            <text class="content-text">{{item.content}}</text>
+            <image wx:if="{{item.imageUrl}}" class="content-img" src="{{item.imageUrl}}" mode="widthFix"></image>
+          </view>
+          <view class="card-footer">
+            <view class="interaction-box">
+              <view class="btn {{item.isLiked ? 'liked' : ''}}" catchtap="handleLike" data-index="{{index}}" data-id="{{item.id}}">
+                {{item.isLiked ? '❤️' : '🤍'}} {{item.likeCount > 0 ? item.likeCount : '赞'}}
+              </view>
+              <view class="btn">💬 {{item.commentCount > 0 ? item.commentCount : '评论'}}</view>
+            </view>
+          </view>
+        </view>
+
+        <view class="task-card fade-in" wx:elif="{{item.type === 'errand'}}" bindtap="goToDetail" data-id="{{item.id}}" data-type="errand">
+          <view class="task-top">
+            <view class="task-user">
+              <view class="tu-avatar">🏃</view>
+              <text class="tu-name">{{item.userName}}</text>
+            </view>
+            <view class="task-price">￥<text class="price-num">{{item.price}}</text></view>
+          </view>
+          <text class="task-title">{{item.content}}</text>
+          <view class="task-info-list">
+            <view class="ti-item"><text class="ti-icon">🕒</text><text>限 {{item.deadline}} 前完成</text></view>
+            <view class="ti-item"><text class="ti-icon">📍</text><text>送至：{{item.location}}</text></view>
+          </view>
+          <view class="task-bot">
+            <view class="task-tags">
+              <text class="t-tag urgent" wx:if="{{item.urgent}}">🔥 急单</text>
+              <text class="t-tag type" wx:if="{{item.taskType}}">{{item.taskType}}</text>
+            </view>
+            <button class="task-btn" catchtap="takeOrder" data-index="{{index}}">立即接单</button>
+          </view>
+        </view>
+
+        <view class="m-card fade-in search-m-card" wx:elif="{{item.type === 'market'}}" bindtap="goToDetail" data-id="{{item.id}}" data-type="market">
+          <image class="m-img" src="{{item.imageUrl}}" mode="aspectFill"></image>
+          <view class="m-content-box">
+            <text class="m-title">{{item.content}}</text>
+            <view class="m-tags">
+              <text class="m-tag trade">{{item.tradeType}}</text>
+              <text class="m-tag condition">{{item.condition}}</text>
+            </view>
+            <view class="m-price-row">
+              <text class="m-price"><text class="m-symbol">￥</text>{{item.price}}</text>
+              <text class="m-original-price">￥{{item.originalPrice}}</text>
+            </view>
+            <view class="m-user-row">
+              <view class="m-user">
+                <view class="m-avatar">👤</view>
+                <text class="m-name">{{item.userName}}</text>
+              </view>
+              <view class="m-action">
+                <view class="m-stat">💬 {{item.commentCount || 0}}</view>
+                <view class="m-like {{item.isLiked ? 'liked' : ''}}" catchtap="handleLike" data-index="{{index}}" data-id="{{item.id}}">
+                  {{item.isLiked ? '❤️' : '🤍'}} {{item.likes || item.likeCount || 0}}
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+
+      </block>
+    </view>
+  </view>
+</view>

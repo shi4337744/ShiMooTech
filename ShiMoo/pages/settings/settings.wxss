@@ -1,0 +1,14 @@
+view, text { box-sizing: border-box; }
+page { background: #f4f7fa; }
+.settings-container { padding: 30rpx; }
+
+.settings-group { background: #fff; border-radius: 24rpx; padding: 0 30rpx; margin-bottom: 30rpx; box-shadow: 0 4rpx 15rpx rgba(0,0,0,0.02); }
+.settings-item { display: flex; justify-content: space-between; align-items: center; padding: 35rpx 0; border-bottom: 1rpx solid #f8fafc; }
+.settings-item:last-child { border-bottom: none; }
+
+.item-text { font-size: 30rpx; color: #334155; }
+.item-arrow { font-size: 26rpx; color: #cbd5e1; font-weight: bold; }
+.item-value { font-size: 26rpx; color: #94a3b8; }
+
+.logout-btn { margin-top: 60rpx; background: #fff; color: #ef4444; height: 100rpx; border-radius: 24rpx; display: flex; justify-content: center; align-items: center; font-size: 32rpx; font-weight: bold; box-shadow: 0 4rpx 15rpx rgba(0,0,0,0.02); transition: all 0.2s; }
+.logout-btn:active { background: #fef2f2; transform: scale(0.98); }
